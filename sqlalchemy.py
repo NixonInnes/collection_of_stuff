@@ -9,8 +9,10 @@ def is_relationship(column):
     return isinstance(inspect(column).property, RelationshipProperty)
 
     
-def traverse_tables(Table: Type[DeclarativeMeta], column_map: str, traversal: List = []):
+def traverse_tables(Table: Type[DeclarativeMeta], column_map: str, traversal: Optional[List] = None):
     """Traverse a column map (i.e., attr.sub_attr.another_attr), returning each SQLAlchemy column in a list"""
+    if traversal is None:
+        traversal = []
     column_names = column_map.split(".")
     
     try:
